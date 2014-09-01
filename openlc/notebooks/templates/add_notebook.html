@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        
+    <h2>Upload a notebook below:</h2>
+    <form method="POST" action="" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <div class="container">
+        {% if file_error %}
+        {{ file_error|safe }}
+        {% endif %}
+        
+        {% for field in form %}
+        <h3><label class="label label-primary" for="{{ field.auto_id }}">Notebook {{ field.label }}
+            {% if field.field.required %}
+            - Required
+            {% else %}
+            - Optional
+            {% endif %}
+            {{ field.error }}
+            </label></h3>{{ field.errors }}<h4>{{ field }}</h4>
+        {% endfor %}
+       
+    </div>
+        
+    <div class="container">
+        <button class="btn btn-primary btn-lg" id="SubmittButton" type="submit" name="submitButton">Upload Notebook</button>
+    </div>
+        
+    </form>
+        
+    </div>
+
+{% endblock %}

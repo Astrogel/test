@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf import global_settings
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -22,7 +24,7 @@ SECRET_KEY = 'mg4y_z$!eik+^(j+3tqo$7j+qai1v5-chrn10jh6y@a4v(%u5@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -36,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'notebooks',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,5 +81,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_FINDERS = ("django.contrib.staticfiles.finders.FileSystemFinder",
+                       "django.contrib.staticfiles.finders.AppDirectoriesFinder")
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'media')]
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'notebooks.context_processor_functions.get_categories',
+)

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+                <div class="col-sm-4">
+                  <div class="panel panel-default">
+                    <div class="panel_heading">
+                      <h3 class="panel-title"><b>Profile picture</b></h3>
+                    </div>
+                    <div class="panel-body">
+                        {% if profile_user_profile.picture %}
+                        <img class="profile-picture" src="{{ profile_user_profile.picture.url }}">
+                        {% else %}
+                        <p>{{ profile_user.username }} has not uploaded a profile picture</p>
+                            
+                        {% endif %}
+
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-8">
+                  <div class="panel panel-default">
+                    <div class="panel_heading">
+                      <h3 class="panel-title"><b>Information</b></h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <div class="notebook_item">
+                            <b>Username:</b> {{ profile_user.username }}
+                        </div>
+                        
+                        <div class="notebook_item">
+                            <b>Email:</b> {{ profile_user.email }}
+                        </div>
+                        
+                        <div class="notebook_item">
+                            <b>First name:</b> {{ profile_user.first_name }}
+                        </div>
+                        
+                        <div class="notebook_item">
+                            <b>Last Name:</b> {{ profile_user.last_name }}
+                        </div>
+                        
+                        <div class="notebook_item">
+                            <b>Description:</b> {{ profile_user_profile.description }}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <a class="btn btn-primary btn-lg btn-block" href="{% url 'notebooks:add_notebook' %}">Upload Notebook</a>
+                </div>
+
+                <div class="col-sm-12">
+                          <div class="panel panel-default">
+                            <div class="panel_heading">
+                              <h3 class="panel-title">Published Notebooks</h3>
+                            </div>
+                            <div class="panel-body">        
+                        
+                        <div class="col-sm-12">
+                            
+                            {% if profile_user_notebooks %}
+                              {% for notebook in profile_user_notebooks %}
+                        <div class="notebook_item">
+                        <h3>
+                            <a href="{% url 'notebooks:notebook_viewer' notebook.user.username notebook.id notebook.slug %}">{{ notebook.title }}</a>
+                        </h3>
+                        <div class="notebook_atributes">
+                        <b>Author: <a href="{% url 'notebooks:profile_page' notebook.user.username %}">{{ notebook.user.username }}</a></b>
+                        <b>Category:  {{ notebook.category }}</b>
+                        <b>Publication date: {{ notebook.pub_date }}</b>
+                        <b>Likes = {{ notebook.likes }}</b>
+                        <b>Views = {{ notebook.views }}</b>
+                        </div>
+                        <p>{{ notebook.description }}</p>
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                      <a href="{% url 'notebooks:add_notebook' %}" class="list-group-item">
+                      <h4 class="list-group-item-heading">No published notebooks</h4>
+                      <p class="list-group-item-text">Publish a notebook by by klicking here!</p>
+                    </a>
+                      {% endif %}
+                            
+                        </div><!-- /.col-sm-4 -->
+                
+                    </div>
+                  </div>
+                </div>
+
+{% endblock %}
+
+<div class="col-sm-4">
+                    
+                </div><!-- /.col-sm-4 -->
+                
+                <div class="col-sm-8">
+                  
+                </div><!-- /.col-sm-4 -->

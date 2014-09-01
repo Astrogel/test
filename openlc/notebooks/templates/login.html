@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    <div class="container" >
+      <form class="form-signin" role="form" method="post">
+          
+          {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+          
+          <div class="form-group">
+                <label for="sign_in_username">Email address</label>
+                <input type="username" class="form-control" id="sign_in_username" placeholder="Username" name="username" required autofocus>
+          </div>
+              
+          <div class="form-group">
+                <label for="sign_in_password">Password</label>
+                <input type="password" class="form-control" id="sign_in_password" placeholder="Password" name="password" required>
+            </div>
+          
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div>
+
+{% endblock %}
+
+

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>Register:</h2>
+      <form class="form-signin" role="form" method="POST" action="" enctype="multipart/form-data">
+        
+          {% csrf_token %}
+          
+          <div class="container">
+            {% for field in user_form %}
+    
+        
+        <h3><label class="label label-primary" for="{{ field.auto_id }}">{{ field.label }}
+            {% if field.field.required %}
+            - Required
+            {% else %}
+            - Optional
+            {% endif %}
+            
+            
+            </label></h3>{{ field.errors }}<h4>{{ field }}</h4>
+    
+            {% endfor %}
+              
+            {% for field in profile_form %}
+    
+        
+        <h3><label class="label label-primary" for="{{ field.auto_id }}">{{ field.label }}
+            {% if field.field.required %}
+            - Required
+            {% else %}
+            - Optional
+            {% endif %}
+            
+            
+            </label></h3>{{ field.errors }}<h4>{{ field }}</h4>
+    
+            {% endfor %}
+       
+    </div>
+        
+    <div class="container">
+        <button class="btn btn-primary btn-lg" id="SubmittButton" type="submit" name="submitButton">Register</button>
+    </div>
+
+    </div> <!-- /container -->
+
+{% endblock %}

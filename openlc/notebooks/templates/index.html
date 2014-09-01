@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h2>Welcome to OpenLC - An open learning community! {{ test }}</h2>
+        <p>This is a place where everyone can share their knowledge and ideas!</p>
+        <p><a href="#" class="btn btn-primary btn-lg" role="button">Learn more about our vision &raquo;</a></p>
+      </div>
+            
+          <div class="panel_heading">
+              <h3 class="panel-title"><b>Top New Notebooks</b></h3>
+          </div>
+          <div class="panel panel-default">
+
+            <div class="panel-body">
+    
+                        {% for notebook in new_notebooks %}
+                        <div class="notebook_item">
+                        <h3>
+                            <a href="{% url 'notebooks:notebook_viewer' notebook.user.username notebook.id notebook.slug %}">{{ notebook.title }}</a>
+                        </h3>
+                        <div class="notebook_atributes">
+                        <b>Author: <a href="{% url 'notebooks:profile_page' notebook.user.username %}">{{ notebook.user.username }}</a></b>
+                        <b>Category:  {{ notebook.category }}</b>
+                        <b>Publication date: {{ notebook.pub_date }}</b>
+                        <b>Likes = {{ notebook.likes }}</b>
+                        <b>Views = {{ notebook.views }}</b>
+                        </div>
+                        <p>{{ notebook.description }}</p>
+                        </div>
+                        {% endfor %}
+                
+                </div>
+            </div>
+
+            <div class="panel_heading">
+              <h3 class="panel-title"><b>Top liked Notebooks</b></h3>
+          </div>
+          <div class="panel panel-default">
+
+            <div class="panel-body">
+    
+                        {% for notebook in likes_notebooks %}
+                        <div class="notebook_item">
+                        <h3>
+                            <a href="{% url 'notebooks:notebook_viewer' notebook.user.username notebook.id notebook.slug %}">{{ notebook.title }}</a>
+                        </h3>
+                        <div class="notebook_atributes">
+                        <b>Author: <a href="{% url 'notebooks:profile_page' notebook.user.username %}">{{ notebook.user.username }}</a></b>
+                        <b>Category:  {{ notebook.category }}</b>
+                        <b>Publication date: {{ notebook.pub_date }}</b>
+                        <b>Likes = {{ notebook.likes }}</b>
+                        <b>Views = {{ notebook.views }}</b>
+                        </div>
+                        <p>{{ notebook.description }}</p>
+                        </div>
+                        {% endfor %}
+                
+                </div>
+            </div>
+
+            <div class="panel_heading">
+              <h3 class="panel-title"><b>Top viewed Notebooks</b></h3>
+          </div>
+          <div class="panel panel-default">
+
+            <div class="panel-body">
+    
+                        {% for notebook in views_notebooks %}
+                        <div class="notebook_item">
+                        <h3>
+                            <a href="{% url 'notebooks:notebook_viewer' notebook.user.username notebook.id notebook.slug %}">{{ notebook.title }}</a>
+                        </h3>
+                        <div class="notebook_atributes">
+                        <b>Author: <a href="{% url 'notebooks:profile_page' notebook.user.username %}">{{ notebook.user.username }}</a></b>
+                        <b>Category:  {{ notebook.category }}</b>
+                        <b>Publication date: {{ notebook.pub_date }}</b>
+                        <b>Likes = {{ notebook.likes }}</b>
+                        <b>Views = {{ notebook.views }}</b>
+                        </div>
+                        <p>{{ notebook.description }}</p>
+                        </div>
+                        {% endfor %}
+                
+                </div>
+            </div>
+
+{% endblock %}
+

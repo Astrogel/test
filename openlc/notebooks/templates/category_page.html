@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="panel_heading">
+              <h3 class="panel-title"><b>{{ category.category }} Notebooks</b></h3>
+          </div>
+          <div class="panel panel-default">
+
+            <div class="panel-body">
+    
+                        {% for notebook in notebooks %}
+                        <div class="notebook_item">
+                        <h3>
+                            <a href="{% url 'notebooks:notebook_viewer' notebook.user.username notebook.id notebook.slug %}">{{ notebook.title }}</a>
+                        </h3>
+                        <div class="notebook_atributes">
+                        <b>Author: <a href="{% url 'notebooks:profile_page' notebook.user.username %}">{{ notebook.user.username }}</a></b>
+                        <b>Category:  {{ notebook.category }}</b>
+                        <b>Publication date: {{ notebook.pub_date }}</b>
+                        <b>Likes = {{ notebook.likes }}</b>
+                        <b>Views = {{ notebook.views }}</b>
+                        </div>
+                        <p>{{ notebook.description }}</p>
+                        </div>
+                        {% endfor %}
+                
+                </div>
+              
+                <div class="pagination">
+                                {% if notebooks.has_previous %}
+                                <li><a href="?page={{ notebooks.previous_page_number }}">&laquo;</a></li>
+                                    {% endif %}
+                                        <li><a>Page {{ notebooks.number }} of {{ notebooks.paginator.num_pages }}</a></li>
+                                    {% if notebooks.has_next %}
+                                        <li><a href="?page={{ notebooks.next_page_number }}">&raquo</a></li>
+                                    {% endif %}
+                                </span>
+                            </div>
+              
+            </div>
+{% endblock %}
