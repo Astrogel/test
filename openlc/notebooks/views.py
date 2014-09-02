@@ -170,12 +170,18 @@ def add_notebook(request):
                 model_instance.slug = slugify(model_instance.title)
                 model_instance.save()
 
+                PYTHONANYWHERE = True
+
                 subprocess.call(['ipython', 'nbconvert' , '--to', 'html', BASE_DIR + MEDIA_URL + 'content/' + u.username + '/' + os.path.basename(model_instance.file.name)])
-                subprocess.call(['mv', BASE_DIR + '/' + os.path.basename(model_instance.file.name)[:-6] + '.html', BASE_DIR + MEDIA_URL + 'content/' + u.username + '/' + model_instance.slug + '.html'])
+                if PYTHONANYWHERE:
+                    subprocess.call(['mv', os.path.dirname(os.path.dirname(BASE_DIR)) + '/' + os.path.basename(model_instance.file.name)[:-6] + '.html', BASE_DIR + MEDIA_URL + 'content/' + u.username + '/' + model_instance.slug + '.html'])
+                else:
+                    subprocess.call(['mv', BASE_DIR + '/' + os.path.basename(model_instance.file.name)[:-6] + '.html', BASE_DIR + MEDIA_URL + 'content/' + u.username + '/' + model_instance.slug + '.html'])
                 subprocess.call(['mv', BASE_DIR + MEDIA_URL + 'content/' + u.username + '/' + os.path.basename(model_instance.file.name), BASE_DIR + MEDIA_URL + 'content/' + u.username + '/' + model_instance.slug + '.ipynb'])
 
+                context = { 'test': os.path.dirname(os.path.dirname(BASE_DIR)) + '/' + os.path.basename(model_instance.file.name)[:-6] + '.html' }
 
-                return render(request, "thanks.html")
+                return render(request, "thanks.html", context)
             else:
                 file_error = '<ul class="errorlist"><li>The file you selected is not an ipython notebook.</li></ul>'
     else:
