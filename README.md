@@ -3,4 +3,4 @@ OpenLC
 
 An open learning community
 
-This is [an example](www.openlc.org "Title") inline link.
+This is [OpenLC](http://www.openlc.org) inline link.
