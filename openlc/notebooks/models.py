@@ -22,7 +22,7 @@ class Category(models.Model):
         return self.category
 
 class Notebook(models.Model):
-    user = models.ForeignKey(User)
+    users = models.ForeignKey(User)
     pub_date = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to=upload_path)
     title = models.CharField(max_length=120, unique=True)
